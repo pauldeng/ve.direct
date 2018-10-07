@@ -60,6 +60,7 @@ get_options()
 {
     # configuration options:
     do_plot=1;	     # create CSV file suitable for creating graphs
+    do_json=;        # emit json
     do_snap=;	     # do panel snapshot
     force_plot=;     # force, even if remote
     do_panel=1;	     # show real-time panel display of most useful data
@@ -76,6 +77,7 @@ get_options()
 	case $arg in
 	--noplot)	do_plot=; ;;
 	--plot)		force_plot=1 ;;
+    --json)     do_json=1 ;;
 	--snapshot)	do_snap=1 ;;
 	--panel)	do_panel=1 ;;
 	--nopanel)	do_panel=; ;;
@@ -140,6 +142,15 @@ get_options()
 	do_raw=;
 	do_data_backup=;
     fi
+
+    if [[ $do_json ]]
+    then
+    do_panel=;
+    do_plot=;
+    do_raw=;
+    do_data_backup=;
+    fi
+
 
     # allow an environment variable to direct us to a remote host
     # by default
@@ -574,6 +585,24 @@ emit_plot_data()
     ) >>$logpath/bmv_plot-$now_date.csv
 }
 
+emit_json_data()
+{
+    local f
+
+    (
+    printf "{\n"
+
+    # here we choose the specific values to put in the "panel" display
+    for f in TIME V I Pcalc CE SOC TTG H9
+    do
+        printf "\"%s\": %s,\n" "${descr[$f]}" "${plot_data[$f]}"
+    done
+
+    printf "\"%s\": %s\n" "${descr[H1]}" "${plot_data[H1]}"
+    printf "}\n"
+    ) > /mnt/tmp-data/bmv-data.json
+}
+
 to_clients()
 {
 	local field value
@@ -800,6 +829,11 @@ loop()
 	    then
 		emit_plot_data
 	    fi
+
+        if [[ $do_json ]]
+        then
+        emit_json_data
+        fi
 
 	    test "$do_testfile" && sleep .2
 	fi
