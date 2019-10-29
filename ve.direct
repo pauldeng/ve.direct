@@ -258,6 +258,7 @@ init_descriptions()
     units[TIME]="daytime";    descr[TIME]="Time" # synthesized
     units[Tstart]="minutes";  descr[Tstart]="Time since engine start" # synthesized
     units[Checksum]="ignore"; descr[Checksum]="Checksum"  # ignored
+	units[MPPT]="none";       descr[MPPT]="MPPT status"
 
     # Alarm reason (AR) bits:
     alarm[0]="lowV";     # Low Voltage            # both
