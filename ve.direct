@@ -34,16 +34,16 @@ usage()
     cat <<-\EOF
 usage: $me [options]
     options:
-     --json              Emit JSON only
-     --panel             Enable real-time display "panel" (default)
+     --json              Emit JSON only (default)
+     --panel             Enable real-time display "panel"
      --nopanel           Suppress the default real-time panel display.
      --snapshot          Show one panel "frame" on stdout, then quit.
      --plot              Enable creation of plot-ready CSV output file
                             (default if reading VE.Direct device directly)
      --noplot            Suppress the plot-ready CSV output file
                             (default if reading data from a remote script)
-     --fahrenheit|-F     Display temperature in Fahrenheit (default)
-     --celsius|-C        Display temperature in Celsius
+     --fahrenheit|-F     Display temperature in Fahrenheit
+     --celsius|-C        Display temperature in Celsius (default)
      --backup            Copy input data to file, for reuse by "--test"
      --device=<device>   Attach to "device" for input from VE.Direct interface
      --remote=<host>     Get data from a copy of this script running on "host"
@@ -60,12 +60,12 @@ EOF
 get_options()
 {
     # configuration options:
-    do_plot=1;	     # create CSV file suitable for creating graphs
-    do_json=;        # emit json
+    do_plot=;	     # create CSV file suitable for creating graphs
+    do_json=1;        # emit json
     do_snap=;	     # do panel snapshot
     force_plot=;     # force, even if remote
-    do_panel=1;	     # show real-time panel display of most useful data
-    do_degF=1;	     # convert temperature to fahrenheit
+    do_panel=;	     # show real-time panel display of most useful data
+    do_degF=;	     # convert temperature to fahrenheit
     do_raw=;	     # display all data in "pretty" format, as it arrives
     do_data_backup=; # create reusable (with "--test") copy of all input data
     logpath=".";     # directory where logs and CSV files should live
