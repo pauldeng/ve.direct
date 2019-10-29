@@ -251,7 +251,7 @@ init_descriptions()
     units[FW]="none";         descr[FW]="Firmware version"
     units[PID]="product";     descr[PID]="Product ID"
     units["SER#"]="none";     descr["SER#"]="Serial number"
-    units[HSDS]="none";       descr[HSDS]="Day sequence number (0..364)"
+    units[HSDS]="none";       descr[HSDS]="Day sequence number" # 0..364 days
     units[MODE]="none";       descr[MODE]="Device mode"
     units[AC_OUT_V]=".01V";   descr[AC_OUT_V]="AC output voltage"
     units[AC_OUT_I]=".1A";    descr[AC_OUT_I]="AC output current"
@@ -592,16 +592,16 @@ emit_json_data()
     local f
 
     (
-    printf "{\n"
+    printf "{"
 
     # here we choose the specific values to put in the "panel" display
-    for f in TIME V I
+    for f in TIME V I VPV PPV IL H19 H20 H21 H22 H23 ERR CS FW HSDS
     do
-        printf "\"%s\": %s,\n" "${descr[$f]}" "${plot_data[$f]}"
+        printf "\"%s\":%s," "${descr[$f]}" "${plot_data[$f]}"
     done
 
-    printf "\"%s\": %s\n" "${descr[MPPT]}" "${plot_data[MPPT]}"
-    printf "}\n"
+    printf "\"%s\":%s" "${descr[MPPT]}" "${plot_data[MPPT]}"
+    printf "}"
     ) > $logpath/bmv-data.json
 }
 
