@@ -259,7 +259,7 @@ init_descriptions()
     units[TIME]="daytime";    descr[TIME]="Time" # synthesized
     units[Tstart]="minutes";  descr[Tstart]="Time since engine start" # synthesized
     units[Checksum]="ignore"; descr[Checksum]="Checksum"  # ignored
-	units[MPPT]="none";       descr[MPPT]="MPPT status (OFF/VOLTAGE OR CURRENT LIMITED/MPP TRACKER ACTIVE)" # 0, 1, 2
+	units[MPPT]="none";       descr[MPPT]="MPPT" # 0: OFF; 1: VOLTAGE OR CURRENT LIMITED; 2: MPP TRACKER ACTIVE
 
     # Alarm reason (AR) bits:
     alarm[0]="lowV";     # Low Voltage            # both
@@ -595,14 +595,12 @@ emit_json_data()
     printf "{\n"
 
     # here we choose the specific values to put in the "panel" display
-    for f in TIME V I Pcalc CE SOC TTG H9
+    for f in TIME V I
     do
-	    printf "\"%s\" \n" "${f}"
-        # printf "\"%s\": %s,\n" "${descr[$f]}" "${plot_data[$f]}"
+        printf "\"%s\": %s,\n" "${descr[$f]}" "${plot_data[$f]}"
     done
 
-    # printf "\"%s\": %s\n" "${descr[H1]}" "${plot_data[H1]}"
-	printf "\"%s\": %s,\n" "${descr[$f]}" "${plot_data[$f]}"
+    printf "\"%s\": %s\n" "${descr[MPPT]}" "${plot_data[MPPT]}"
     printf "}\n"
     ) > $logpath/bmv-data.json
 }
