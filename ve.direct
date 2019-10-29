@@ -52,6 +52,7 @@ usage: $me [options]
      --test=<testfile>   Fetch input from "testfile" instead of VE.Direct
      --raw               Format and show data directly as it arrives
                             (mostly for debug)
+	 --json              Emit JSON only
 EOF
     exit 1
 }
@@ -601,7 +602,7 @@ emit_json_data()
 
     printf "\"%s\": %s\n" "${descr[H1]}" "${plot_data[H1]}"
     printf "}\n"
-    ) > /mnt/tmp-data/bmv-data.json
+    ) > $logpath/bmv-data.json
 }
 
 to_clients()
