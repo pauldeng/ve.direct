@@ -10,7 +10,7 @@ cd "$mydir" || exit 1
 # with "ls /dev/serial/by-id".
 # hopefully there won't ever be two serial devices on
 # this machine with this same ID.
-ttyid=usb-FTDI_FT232EX-if00-port0
+ttyid=usb-VictronEnergy_BV_VE_Direct_cable_VE34GMA9-if00-port0
 
 if [ ! -e /dev/serial/by-id/$ttyid ]
 then
