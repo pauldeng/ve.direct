@@ -34,6 +34,7 @@ usage()
     cat <<-\EOF
 usage: $me [options]
     options:
+     --json              Emit JSON only
      --panel             Enable real-time display "panel" (default)
      --nopanel           Suppress the default real-time panel display.
      --snapshot          Show one panel "frame" on stdout, then quit.
@@ -52,7 +53,6 @@ usage: $me [options]
      --test=<testfile>   Fetch input from "testfile" instead of VE.Direct
      --raw               Format and show data directly as it arrives
                             (mostly for debug)
-	 --json              Emit JSON only
 EOF
     exit 1
 }
@@ -597,10 +597,12 @@ emit_json_data()
     # here we choose the specific values to put in the "panel" display
     for f in TIME V I Pcalc CE SOC TTG H9
     do
-        printf "\"%s\": %s,\n" "${descr[$f]}" "${plot_data[$f]}"
+	    printf "\"%s\" \n" "${f}"
+        # printf "\"%s\": %s,\n" "${descr[$f]}" "${plot_data[$f]}"
     done
 
-    printf "\"%s\": %s\n" "${descr[H1]}" "${plot_data[H1]}"
+    # printf "\"%s\": %s\n" "${descr[H1]}" "${plot_data[H1]}"
+	printf "\"%s\": %s,\n" "${descr[$f]}" "${plot_data[$f]}"
     printf "}\n"
     ) > $logpath/bmv-data.json
 }
