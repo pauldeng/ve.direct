@@ -1,4 +1,4 @@
-usage:
+usage:  
 sudo ./ve.direct --device=/dev/ttyUSB0 --raw  
 sudo ./ve.direct --device=/dev/ttyUSB0 --json --noplot -C  
 
