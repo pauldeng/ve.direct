@@ -240,7 +240,7 @@ init_descriptions()
     units[H16]="mV";          descr[H16]="Maximum auxiliary (battery) voltage"
     units[H17]=".01kWh";      descr[H17]="Amount of discharged energy"
     units[H18]=".01kWh";      descr[H18]="Amount of charged energy"
-    units[H19]=".01kWh";      descr[H19]="Yield total (user resettable counter)"
+    units[H19]=".01kWh";      descr[H19]="Yield total" # user resettable counter
     units[H20]=".01kWh";      descr[H20]="Yield today"
     units[H21]="Watts";       descr[H21]="Maximum power today"
     units[H22]=".01kWh";      descr[H22]="Yield yesterday"
